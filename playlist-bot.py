@@ -45,9 +45,9 @@ def start(update, context):
     '''
     Start playlist bot
     '''
+    print(update.message)
     logging.info('Received command massage: start: {'+\
-        '\'username\':\''+update.message.chat.username+'\', '\
-        '\'message\':\''+update.message.text+'\'}')
+        '\"id\":\"'+update.message.chat.id+'\"}')
     context.bot.send_message(chat_id=update.effective_chat.id, 
     text=intro)
 
@@ -57,8 +57,7 @@ def playlist(update, context):
     List youtube playlist optionsS
     '''
     logging.info('Received command massage: playlist: {'+\
-        '\'username\':\''+update.message.chat.username+'\', '\
-        '\'message\':\''+update.message.text+'\'}')
+        '\"id\":\"'+update.message.chat.id+'\"}')
     context.bot.send_message(chat_id=update.effective_chat.id, text=
     'In a mood for a video? Choose your playlist:\n'+\
     '> /curiosity - Random knowledge')
@@ -69,8 +68,7 @@ def curiosity(update, context):
     Get Playlist and return a random one from it
     '''
     logging.info('Received command massage: curiosity: {'+\
-        '\'username\':\''+update.message.chat.username+'\', '\
-        '\'message\':\''+update.message.text+'\'}')
+        '\"id\":\"'+update.message.chat.id+'\"}')
     youtube = build('youtube', 'v3', developerKey=youtube_key, cache_discovery=False)
     request = youtube.playlistItems().list(
             part='snippet',
@@ -86,10 +84,8 @@ def curiosity(update, context):
     
 def record_noncommand(update, context):
     logging.info('Received non-command massage: {'+\
-        '\'username\':\''+update.message.chat.username+'\', '\
+        '\'id\':\''+update.message.chat.id+'\', '\
         '\'message\':\''+update.message.text+'\'}')
-    #print(update)
-    
 
 # run function when prompt matches
 start_handler = CommandHandler('start', start)
