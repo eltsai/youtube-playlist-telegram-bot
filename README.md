@@ -16,10 +16,11 @@ Prerequisite:
 * [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot) 
 * [google-api-python-client](https://github.com/googleapis/google-api-python-client) 
 * argparse
+* schedule
 
 ### Try My Bot
 
-Telegram @ElisaArchive
+[Telegram @ElisaArchivebot](https://t.me/ElisaArchivebot) 
 
 ![demo](./assets/demo.gif)
 
