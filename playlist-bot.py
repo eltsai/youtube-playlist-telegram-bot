@@ -22,7 +22,6 @@ token_src = './assets/token'
 youtube_API_src = './assets/youtubeAPI'
 intro_src = 'assets/intro'
 playlist_intro_src = 'assets/playlist-intro'
-#logs_dir = './logs/'
 
 # load assets
 with open(token_src,'r') as token_file:
@@ -66,7 +65,7 @@ def start(update, context):
 
 def playlist(update, context):
     '''
-    List youtube playlist optionsS
+    List youtube playlist options
     '''
     logging.info('Received command massage: playlist: {'+\
         '\"id\":\"'+str(update.message.chat.id)+'\"}')
@@ -75,7 +74,7 @@ def playlist(update, context):
 
 def curiosity(update, context):
     '''
-    Get Playlist and return a random one from it
+    Get playlists info and return a random one video
     '''
     logging.info('Received command massage: curiosity: {'+\
         '\"id\":\"'+str(update.message.chat.id)+'\"}')
