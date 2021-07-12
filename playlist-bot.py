@@ -18,31 +18,6 @@ import json
 import logging
 import argparse
 
-token_src = './assets/token'
-youtube_API_src = './assets/youtubeAPI'
-intro_src = 'assets/intro'
-playlist_intro_src = 'assets/playlist-intro'
-
-# load assets
-with open(token_src,'r') as token_file:
-    token = token_file.read()
-with open(youtube_API_src, 'r') as API_file:
-    youtube_key = API_file.read()
-with open(intro_src, 'r') as intro_file:
-    intro = intro_file.read()
-with open(playlist_intro_src, 'r') as playlist_intro_file:
-    playlist_intro = playlist_intro_file.read()
-    
-
-
-# arg parse
-parser = argparse.ArgumentParser(description='A playlist telegram bot.')
-parser.add_argument('-log', action="store", dest="log", help="specify the dest of log file if wanted", default="")
-args = parser.parse_args()
-
-# initialize tg bot
-updater = Updater(token=token, use_context=True)
-dispatcher = updater.dispatcher
 
 if args.log == "":
     logging.basicConfig(level=logging.INFO,
@@ -162,27 +137,58 @@ def record_noncommand(update, context):
         '\'id\':\''+str(update.message.chat.id)+'\', '\
         '\'message\':\''+update.message.text+'\'}')
 
-# run function when prompt matches
-start_handler = CommandHandler('start', start)
-playlist_handler = CommandHandler('playlist', playlist)
-curiosity_handler = CommandHandler('curiosity', curiosity)
-astrology_handler = CommandHandler('astrology', astrology)
-nihilism_handler = CommandHandler('nihilism', nihilism)
-exurb1a_handler = CommandHandler('exurb1a', exurb1a)
-musicjokes_handler = CommandHandler('musicjokes', musicjokes)
 
-record_noncommand_handler = MessageHandler(Filters.text & (~Filters.command), record_noncommand)
+def main():
+    token_src = './assets/token'
+    youtube_API_src = './assets/youtubeAPI'
+    intro_src = 'assets/intro'
+    playlist_intro_src = 'assets/playlist-intro'
 
-# register it in the dispatcher
-dispatcher.add_handler(start_handler)
-dispatcher.add_handler(playlist_handler)
-dispatcher.add_handler(curiosity_handler)
-dispatcher.add_handler(astrology_handler)
-dispatcher.add_handler(nihilism_handler)
-dispatcher.add_handler(exurb1a_handler)
-dispatcher.add_handler(musicjokes_handler)
-
-dispatcher.add_handler(record_noncommand_handler)
+    # load assets
+    with open(token_src,'r') as token_file:
+        token = token_file.read()
+    with open(youtube_API_src, 'r') as API_file:
+        youtube_key = API_file.read()
+    with open(intro_src, 'r') as intro_file:
+        intro = intro_file.read()
+    with open(playlist_intro_src, 'r') as playlist_intro_file:
+        playlist_intro = playlist_intro_file.read()
+        
 
 
-updater.start_polling()
+    # arg parse
+    parser = argparse.ArgumentParser(description='A playlist telegram bot.')
+    parser.add_argument('-log', action="store", dest="log", help="specify the dest of log file if wanted", default="")
+    args = parser.parse_args()
+
+    # initialize tg bot
+    updater = Updater(token=token, use_context=True)
+    dispatcher = updater.dispatcher
+
+    # run function when prompt matches
+    start_handler = CommandHandler('start', start)
+    playlist_handler = CommandHandler('playlist', playlist)
+    curiosity_handler = CommandHandler('curiosity', curiosity)
+    astrology_handler = CommandHandler('astrology', astrology)
+    nihilism_handler = CommandHandler('nihilism', nihilism)
+    exurb1a_handler = CommandHandler('exurb1a', exurb1a)
+    musicjokes_handler = CommandHandler('musicjokes', musicjokes)
+
+    record_noncommand_handler = MessageHandler(Filters.text & (~Filters.command), record_noncommand)
+
+    # register it in the dispatcher
+    dispatcher.add_handler(start_handler)
+    dispatcher.add_handler(playlist_handler)
+    dispatcher.add_handler(curiosity_handler)
+    dispatcher.add_handler(astrology_handler)
+    dispatcher.add_handler(nihilism_handler)
+    dispatcher.add_handler(exurb1a_handler)
+    dispatcher.add_handler(musicjokes_handler)
+
+    dispatcher.add_handler(record_noncommand_handler)
+
+
+    updater.start_polling()
+
+if __name__ == "__main__":
+    main()
