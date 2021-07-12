@@ -19,13 +19,20 @@ import logging
 import argparse
 
 
-if args.log == "":
-    logging.basicConfig(level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-else:
-    logging.basicConfig(filename=args.log,
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+token_src = './assets/token'
+youtube_API_src = './assets/youtubeAPI'
+intro_src = 'assets/intro'
+playlist_intro_src = 'assets/playlist-intro'
+
+# load assets
+with open(token_src,'r') as token_file:
+    token = token_file.read()
+with open(youtube_API_src, 'r') as API_file:
+    youtube_key = API_file.read()
+with open(intro_src, 'r') as intro_file:
+    intro = intro_file.read()
+with open(playlist_intro_src, 'r') as playlist_intro_file:
+    playlist_intro = playlist_intro_file.read()
 
 
 def start(update, context):
@@ -139,27 +146,18 @@ def record_noncommand(update, context):
 
 
 def main():
-    token_src = './assets/token'
-    youtube_API_src = './assets/youtubeAPI'
-    intro_src = 'assets/intro'
-    playlist_intro_src = 'assets/playlist-intro'
-
-    # load assets
-    with open(token_src,'r') as token_file:
-        token = token_file.read()
-    with open(youtube_API_src, 'r') as API_file:
-        youtube_key = API_file.read()
-    with open(intro_src, 'r') as intro_file:
-        intro = intro_file.read()
-    with open(playlist_intro_src, 'r') as playlist_intro_file:
-        playlist_intro = playlist_intro_file.read()
-        
-
 
     # arg parse
     parser = argparse.ArgumentParser(description='A playlist telegram bot.')
     parser.add_argument('-log', action="store", dest="log", help="specify the dest of log file if wanted", default="")
     args = parser.parse_args()
+    if args.log == "":
+        logging.basicConfig(level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    else:
+        logging.basicConfig(filename=args.log,
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     # initialize tg bot
     updater = Updater(token=token, use_context=True)
